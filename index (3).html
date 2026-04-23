@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anna Chapko — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a18;
+    --muted: #6b6b65;
+    --faint: #b0afa8;
+    --bg: #f9f7f2;
+    --surface: #ffffff;
+    --accent: #2a5c45;
+    --accent-light: #e1ede7;
+    --accent2: #b94f2a;
+    --border: rgba(26,26,24,0.10);
+    --radius: 10px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(249,247,242,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.875rem; color: var(--muted);
+    font-weight: 400; transition: color 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 2rem; max-width: 960px; margin: 0 auto; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: calc(100vh - 56px);
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: 4rem; padding-bottom: 4rem;
+  }
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; color: var(--accent);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .hero-name em { font-style: italic; color: var(--accent); }
+  .hero-sub {
+    font-size: 1.15rem; color: var(--muted); max-width: 520px;
+    font-weight: 300; line-height: 1.7; margin-bottom: 2.5rem;
+  }
+  .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    text-decoration: none; font-size: 0.875rem; font-weight: 500;
+    padding: 0.6rem 1.25rem; border-radius: var(--radius);
+    transition: all 0.2s; letter-spacing: 0.01em;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    border: 1px solid var(--accent);
+  }
+  .btn-primary:hover { background: #1f4433; border-color: #1f4433; }
+  .btn-ghost {
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { background: var(--surface); border-color: rgba(26,26,24,0.2); }
+
+  /* ── SECTION HEADER ── */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; color: var(--faint);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  h2.section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em; line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+  .section-intro { color: var(--muted); max-width: 540px; margin-bottom: 3rem; font-weight: 300; }
+
+  /* ── PROJECTS GRID ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.5rem 1.25rem;
+    display: flex; flex-direction: column;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .project-card:hover {
+    box-shadow: 0 8px 32px rgba(26,26,24,0.08);
+    transform: translateY(-2px);
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent);
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .project-card:hover::before { opacity: 1; }
+  .project-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; color: var(--faint);
+    letter-spacing: 0.1em; margin-bottom: 1rem;
+  }
+  .project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem; color: var(--ink);
+    letter-spacing: -0.01em; margin-bottom: 0.6rem;
+  }
+  .project-desc {
+    font-size: 0.875rem; color: var(--muted);
+    line-height: 1.65; flex: 1; margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem; color: var(--accent);
+    background: var(--accent-light);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px; letter-spacing: 0.04em;
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-item:first-child { border-top: 1px solid var(--border); }
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; color: var(--faint);
+    letter-spacing: 0.06em; padding-top: 0.2rem;
+    line-height: 1.5;
+  }
+  .exp-right {}
+  .exp-role {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem; letter-spacing: -0.01em;
+    margin-bottom: 0.15rem;
+  }
+  .exp-company {
+    font-size: 0.85rem; color: var(--accent);
+    font-weight: 500; margin-bottom: 0.75rem;
+  }
+  .exp-desc {
+    font-size: 0.875rem; color: var(--muted);
+    font-weight: 300; line-height: 1.7;
+  }
+  .exp-desc li { margin-bottom: 0.35rem; list-style: none; padding-left: 1.1em; position: relative; }
+  .exp-desc li::before { content: '—'; position: absolute; left: 0; color: var(--faint); }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+  }
+  .skill-group-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; color: var(--accent);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 0.875rem;
+  }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .skill-pill {
+    font-size: 0.8rem; color: var(--muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-weight: 400;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .about-text p {
+    font-weight: 300; color: var(--muted);
+    line-height: 1.8; margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .about-meta { display: flex; flex-direction: column; gap: 1rem; }
+  .meta-row {
+    display: flex; gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem; color: var(--faint);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    min-width: 80px; padding-top: 0.1rem;
+  }
+  .meta-val { font-size: 0.9rem; color: var(--ink); }
+
+  /* ── CONTACT ── */
+  #contact {
+    text-align: center;
+    background: var(--ink);
+    color: var(--bg);
+    max-width: 100%;
+    padding: 5rem 2rem;
+  }
+  #contact .section-label { color: rgba(249,247,242,0.3); justify-content: center; }
+  #contact .section-label::after { display: none; }
+  #contact h2.section-title { color: var(--bg); }
+  #contact .section-intro { color: rgba(249,247,242,0.55); margin: 0 auto 2.5rem; }
+  .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    text-decoration: none; font-size: 0.875rem; font-weight: 400;
+    color: var(--bg);
+    border: 1px solid rgba(249,247,242,0.2);
+    padding: 0.6rem 1.25rem; border-radius: var(--radius);
+    transition: all 0.2s;
+  }
+  .contact-link:hover {
+    background: rgba(249,247,242,0.08);
+    border-color: rgba(249,247,242,0.35);
+  }
+  footer {
+    background: var(--ink);
+    text-align: center; padding: 1.25rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; color: rgba(249,247,242,0.25);
+    letter-spacing: 0.06em;
+    border-top: 1px solid rgba(249,247,242,0.06);
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1.2rem; }
+    section { padding: 3.5rem 1.25rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.25rem 0; }
+    .exp-date { margin-bottom: 0.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-name">Anna Chapko</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-tag">CS Student & Developer</p>
+  <h1 class="hero-name">Anna<br><em>Chapko</em></h1>
+  <p class="hero-sub">
+    Computer Science student at CUNY Hunter College building iOS apps, relational databases, and full-stack platforms. Graduating July 2026.
+  </p>
+  <div class="hero-links">
+    <a href="#projects" class="btn btn-primary">View my work</a>
+    <a href="https://github.com/annachapko" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+    <a href="https://www.linkedin.com/in/anna-chapko" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Selected projects</p>
+  <h2 class="section-title">Things I've built</h2>
+  <p class="section-intro">Two projects spanning mobile development and relational database design.</p>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <p class="project-num">01</p>
+      <h3 class="project-title">Health Tracker iOS App</h3>
+      <p class="project-desc">iOS app for tracking daily calorie intake and nutrition metrics. Integrates REST APIs for food data and features a built-in calendar with real-time data syncing and structured food logging.</p>
+      <div class="tag-row">
+        <span class="tag">Swift</span>
+        <span class="tag">SwiftUI</span>
+        <span class="tag">REST API</span>
+        <span class="tag">iOS</span>
+      </div>
+      <a href="https://github.com/annachapko/health-tracker-ios" target="_blank" style="display:inline-block; margin-top: 1rem; font-size: 0.8rem; color: var(--accent); text-decoration: none; font-weight: 500;">View on GitHub ↗</a>
+    </div>
+
+    <div class="project-card">
+      <p class="project-num">02</p>
+      <h3 class="project-title">Food Delivery Database</h3>
+      <p class="project-desc">SQL relational database modeling a full food delivery service — customers, restaurants, orders, payments, and delivery tracking. Designed ER diagram and normalized schema to support complex queries and reporting.</p>
+      <div class="tag-row">
+        <span class="tag">SQL</span>
+        <span class="tag">Data Modeling</span>
+        <span class="tag">ER Diagrams</span>
+        <span class="tag">MySQL</span>
+      </div>
+      <a href="https://github.com/annachapko/food-delivery-database" target="_blank" style="display:inline-block; margin-top: 1rem; font-size: 0.8rem; color: var(--accent); text-decoration: none; font-weight: 500;">View on GitHub ↗</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">Work experience</p>
+  <h2 class="section-title">Where I've worked</h2>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-date">Apr 2025 —<br>Present</div>
+      <div class="exp-right">
+        <p class="exp-role">Medical Office Assistant</p>
+        <p class="exp-company">Jenny Shloizberg, MD</p>
+        <ul class="exp-desc">
+          <li>Managed patient scheduling and maintained records in Epic / Cerner, ensuring data consistency</li>
+          <li>Generated SAS reports on patient and appointment data; identified discrepancies to improve tracking accuracy</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Jun 2024 —<br>Aug 2024</div>
+      <div class="exp-right">
+        <p class="exp-role">Full Stack Developer Intern</p>
+        <p class="exp-company">Evergreen Investment</p>
+        <ul class="exp-desc">
+          <li>Built and maintained a WordPress + React.js + AWS platform, improving property listing visibility</li>
+          <li>Designed automated data workflows connecting internal databases to external platforms</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Jan 2024 —<br>Jun 2024</div>
+      <div class="exp-right">
+        <p class="exp-role">Gen AI / ML Consultant Intern</p>
+        <p class="exp-company">Scale AI</p>
+        <ul class="exp-desc">
+          <li>Validated 30+ GenAI/LLM tasks weekly using Python and C++; curated datasets to improve training reliability</li>
+          <li>Built data transformation pipelines to convert raw inputs into structured training datasets</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Sep 2022 —<br>Mar 2022</div>
+      <div class="exp-right">
+        <p class="exp-role">Part-Time Teacher</p>
+        <p class="exp-company">Russian School of Mathematics</p>
+        <ul class="exp-desc">
+          <li>Taught advanced math to 12–14 students per class (grades 1–3), tracking progress to improve engagement</li>
+          <li>Provided weekly 1:1 tutoring for 2–3 students with measurable improvements in comprehension</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Skills & tools</p>
+  <h2 class="section-title">What I work with</h2>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <p class="skill-group-name">Languages</p>
+      <div class="skill-pills">
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">C++</span>
+        <span class="skill-pill">SQL</span>
+        <span class="skill-pill">Swift</span>
+        <span class="skill-pill">HTML</span>
+        <span class="skill-pill">CSS</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-name">Frameworks & Platforms</p>
+      <div class="skill-pills">
+        <span class="skill-pill">React.js</span>
+        <span class="skill-pill">SwiftUI</span>
+        <span class="skill-pill">REST APIs</span>
+        <span class="skill-pill">AWS</span>
+        <span class="skill-pill">WordPress</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-name">Data & AI</p>
+      <div class="skill-pills">
+        <span class="skill-pill">Data Modeling</span>
+        <span class="skill-pill">SQL Queries</span>
+        <span class="skill-pill">GenAI / LLMs</span>
+        <span class="skill-pill">SAS</span>
+        <span class="skill-pill">Pipelines</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-name">Tools</p>
+      <div class="skill-pills">
+        <span class="skill-pill">Git</span>
+        <span class="skill-pill">Xcode</span>
+        <span class="skill-pill">VS Code</span>
+        <span class="skill-pill">Figma</span>
+        <span class="skill-pill">Linux</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-name">Healthcare Systems</p>
+      <div class="skill-pills">
+        <span class="skill-pill">Epic</span>
+        <span class="skill-pill">Cerner</span>
+        <span class="skill-pill">Medisoft</span>
+        <span class="skill-pill">EHR</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-name">Design & Creative</p>
+      <div class="skill-pills">
+        <span class="skill-pill">Figma</span>
+        <span class="skill-pill">Canva</span>
+        <span class="skill-pill">Illustrator</span>
+        <span class="skill-pill">Photoshop</span>
+        <span class="skill-pill">Premiere Pro</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contact">
+  <p class="section-label">Get in touch</p>
+  <h2 class="section-title">Let's connect</h2>
+  <p class="section-intro">Open to internships, part-time roles, and collaborations. Graduating July 2026.</p>
+  <div class="contact-links">
+    <a href="mailto:anna.chapko2004@gmail.com" class="contact-link">anna.chapko2004@gmail.com</a>
+    <a href="https://github.com/annachapko" target="_blank" class="contact-link">GitHub ↗</a>
+    <a href="https://www.linkedin.com/in/anna-chapko" target="_blank" class="contact-link">LinkedIn ↗</a>
+  </div>
+</div>
+
+<footer>© 2025 Anna Chapko — Built with HTML & CSS</footer>
+
+</body>
+</html>
